@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test';
 import {
   calculateSalesTax,
   roundUp,
+  generateReceipt,
 } from './index';
 
 describe('calculateSalesTax', () => {
@@ -20,17 +21,35 @@ describe('calculateSalesTax', () => {
 });
 
 describe('roundUp', () => {
-  test.todo('should round up to the nearest 0.05', () => {
+  test('should round up to the nearest 0.05', () => {
     expect(roundUp(0.01)).toBe(0.05);
     expect(roundUp(0.06)).toBe(0.1);
     expect(roundUp(0.101)).toBe(0.15);
   });
-  test.todo(
-    'should return the same value if already a multiple of 0.05',
-    () => {
+  test('should return the same value if already a multiple of 0.05', () => {
       expect(roundUp(0.05)).toBe(0.05);
       expect(roundUp(0.1)).toBe(0.1);
-    },
-  );
+  });
+});
+
+describe('generateReceipt', () => {
+  test('should generate a correct receipt for a mix of items', () => {
+    const items = [
+      { name: 'book', price: 12.49, isExempt: true, isImported: false },
+      { name: 'music CD', price: 14.99, isExempt: false, isImported: false },
+      {
+        name: 'imported chocolate',
+        price: 10.0,
+        isExempt: true,
+        isImported: true,
+      },
+    ];
+
+    const receipt = generateReceipt(items);
+
+    expect(receipt.items).toHaveLength(3);
+    expect(receipt.tax).toBeCloseTo(1.5 + 0.5); // 1.5 for music CD and 0.5 for imported chocolate
+    expect(receipt.total).toBeCloseTo(12.49 + 16.49 + 10.5); // Prices including tax
+  });
 });
 
