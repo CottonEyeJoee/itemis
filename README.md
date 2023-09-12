@@ -6,34 +6,37 @@ This code challenge places a strong emphasis on Test-Driven Development (**TDD**
 
 ## :clipboard: Requirements
 
-- [x] Apply Sales tax rules
-  - [x] Apply a basic sales tax of 10% on all goods, except for books, food, and medical products.
-  - [x] Apply an import duty of 5% on all imported goods, with no exemptions.
-- [x] For a tax rate of `n%`, a shelf price of `p` contains (`np/100` rounded up to the nearest 0.05) amount of sales tax.
+### Apply Sales tax rules
+
+- [x] Apply a basic sales tax of 10% on all goods, except for books, food, and medical products.
+- [x] Apply an import duty of 5% on all imported goods, with no exemptions.
+
+### Tax Calculation
+
+- [x] For a tax rate n% and shelf price p, compute the sales tax as (np/100), rounded to the nearest 0.05.
+
+### Application Output
+
 - [x] The application takes a list of purchased items and outputs a structured receipt on the console, detailing taxed prices and total costs.
+
+### Tests
+
+- [x] 100% code coverage with unit tests
 
 ## :gear: Setup
 
-1. Clone the repository.
+1. First, clone the repository using the following command:
    ```bash
    git clone git@github.com:CottonEyeJoee/itemis.git
    ```
-2. Navigate to the project directory.
+2. Next, navigate to the project directory:
    ```bash
    cd itemis
    ```
-3. Install the necessary dependencies.
+3. Finally, install the necessary dependencies:
    ```bash
    bun install
    ```
-
-## :test_tube: Tests
-
-[Bun test](https://bun.sh/docs/cli/test) (to display code coverage append `--coverage`)
-
-```bash
-bun test
-```
 
 ## :toolbox: Tooling
 
@@ -46,7 +49,7 @@ bun test
   ```bash
   bun start
   ```
-- **Test**: To run the tests, use the command:
+- **Test**: To run the tests, use the command (to display code coverage append `--coverage`):
   ```bash
   bun test
   ```
