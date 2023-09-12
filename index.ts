@@ -54,3 +54,29 @@ export function generateReceipt(items: Item[]): Receipt {
   };
 }
 
+export function printReceipt(receipt: Receipt): string[] {
+  const output: string[] = [];
+
+  receipt.items.forEach((item) => {
+    output.push(`${item.quantity} ${item.name}: ${item.price.toFixed(2)}`);
+  });
+
+  output.push(`Sales Taxes: ${receipt.tax.toFixed(2)}`);
+  output.push(`Total: ${receipt.total.toFixed(2)}`);
+
+  return output;
+}
+
+const path = './items.json';
+const file = Bun.file(path);
+
+const contents = await file.json();
+
+// Loop through each input in the contents
+Object.keys(contents).forEach((key, index) => {
+  const input = generateReceipt(contents[key]);
+  const printedReceipt = printReceipt(input);
+
+  console.log(`\nOutput ${index + 1}:`);
+  console.log(printedReceipt.join('\n'));
+});

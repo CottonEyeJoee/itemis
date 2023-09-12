@@ -3,6 +3,7 @@ import {
   calculateSalesTax,
   roundUp,
   generateReceipt,
+  printReceipt,
 } from './index';
 
 describe('calculateSalesTax', () => {
@@ -10,7 +11,7 @@ describe('calculateSalesTax', () => {
     expect(calculateSalesTax(10, true, false)).toBe(0);
   });
   test('should return 10% tax for a non-exempt and non-imported item', () => {
-      expect(calculateSalesTax(10, false, false)).toBe(1); // 10% of 10
+    expect(calculateSalesTax(10, false, false)).toBe(1); // 10% of 10
   });
   test('should return 5% tax for an exempt and imported item', () => {
     expect(calculateSalesTax(10, true, true)).toBe(0.5); // 5% of 10
@@ -27,8 +28,8 @@ describe('roundUp', () => {
     expect(roundUp(0.101)).toBe(0.15);
   });
   test('should return the same value if already a multiple of 0.05', () => {
-      expect(roundUp(0.05)).toBe(0.05);
-      expect(roundUp(0.1)).toBe(0.1);
+    expect(roundUp(0.05)).toBe(0.05);
+    expect(roundUp(0.1)).toBe(0.1);
   });
 });
 
@@ -53,3 +54,24 @@ describe('generateReceipt', () => {
   });
 });
 
+describe('printReceipt', () => {
+  test('should print the receipt in the correct format', () => {
+    const receipt = {
+      items: [
+        { quantity: 1, name: 'book', price: 12.49 },
+        { quantity: 1, name: 'music CD', price: 16.49 },
+      ],
+      tax: 1.5,
+      total: 28.98,
+    };
+
+    const printed = printReceipt(receipt);
+
+    expect(printed).toEqual([
+      '1 book: 12.49',
+      '1 music CD: 16.49',
+      'Sales Taxes: 1.50',
+      'Total: 28.98',
+    ]);
+  });
+});
