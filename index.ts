@@ -67,10 +67,12 @@ export function printReceipt(receipt: Receipt): string[] {
   return output;
 }
 
-const path = './items.json';
-const file = Bun.file(path);
+function readItemsFromFile(filePath: string = './items.json') {
+  const file = Bun.file(filePath);
+  return file.json();
+}
 
-const contents = await file.json();
+const contents = await readItemsFromFile();
 
 // Loop through each input in the contents
 Object.keys(contents).forEach((key, index) => {
